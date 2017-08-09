@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <script src="obs-websocket.js"></script>
+    <script src="dash.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <h1>Available Scenes</h1>
+    <div class="available-scenes">
+
+    </div>
+
+    <video id="videoPlayer" controls></video>
+  </body>
+
+  <script>
+    const obs = new OBSWebSocket();
+    connection = obs.connect({ address: '192.168.200.122:4444', password: 'spyrothon' });
+
+    obs.onSwitchScenes(function(data) {
+      console.log('New Active Scene:', data.sceneName);
+    });
+
+    connection.then(function() {
+      obs.getSceneList({}).then(function(response) {
+        response.scenes.forEach(function(scene) {
+          var element = document.createElement("div");
+          element.classList.add("scene");
+          element.innerText = scene.name;
+          document.querySelector(".available-scenes").appendChild(element);
+          if(scene.name == response.currentScene) {
+            element.classList.add("current-scene");
+          }
+        });
+      });
+    });
+
+
+    document.addEventListener('click', function(event) {
+      var target = event.target;
+      if(!target.classList.contains("scene")) return;
+      console.log(target);
+
+      obs.setCurrentScene({ "scene-name": target.innerText });
+    }, false);
+
+    (function(){
+        var url = "http://stream.spyrothon.org/dash/spyro3-any-faulty.mpd";
+        var player = dashjs.MediaPlayer().create();
+        player.initialize(document.querySelector("#videoPlayer"), url, true);
+    })();
+  </script>
+</html>

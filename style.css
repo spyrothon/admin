@@ -1,0 +1,17 @@
+body {
+  font-family: sans-serif;
+}
+
+.available-scenes {
+  width: 400px;
+}
+
+.available-scenes .scene {
+  display: block;
+  padding: 12px 16px;
+}
+
+.available-scenes .scene:hover {
+  background-color: #f7f7f7;
+  cursor: pointer;
+}
