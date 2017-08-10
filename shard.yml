@@ -1,0 +1,16 @@
+name: spyrothon_admin
+version: 0.1.0
+crystal: 0.22.0
+license: MIT
+authors:
+  - Jon Egeland <jonegeland@gmail.com>
+
+
+targets:
+  admin:
+    main: server.cr
+
+
+dependencies:
+  kemal:
+    github: kemalcr/kemal

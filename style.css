@@ -2,8 +2,14 @@ body {
   font-family: sans-serif;
 }
 
-.available-scenes {
+.scene-manager {
   width: 400px;
+  float: left;
+}
+
+.available-scenes {
+  height: 500px;
+  overflow: scroll;
 }
 
 .available-scenes .scene {
@@ -14,4 +20,49 @@ body {
 .available-scenes .scene:hover {
   background-color: #f7f7f7;
   cursor: pointer;
+}
+
+#checklist {
+  width: 700px;
+  float: left;
+}
+
+#checklist li {
+  padding: 4px;
+}
+
+.timer-control {
+  width: 700px;
+  float: left;
+}
+
+.timer-time {
+  font-size: 46px;
+}
+
+.actions {
+  margin-top: 12px;
+}
+
+button {
+  font-size: 1.4em;
+  padding: 8px 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ddd;
+}
+
+#reset_timer {
+  background-color: #d65353;
+  border-color: #a23e3e;
+  color: #fff;
+}
+
+#reset_timer:hover {
+  background-color: #a23e3e;
 }
