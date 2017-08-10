@@ -21,6 +21,7 @@
       switch(msg.action) {
         case "start":
           document.querySelector(".timer").classList.add("updated-timer");
+          document.querySelector(".timer").classList.remove("finished");
           break;
         case "stop":
           document.querySelector(".timer").classList.remove("updated-timer");

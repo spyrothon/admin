@@ -5,6 +5,35 @@ body {
 .timer {
   font-size: 60px;
   font-weight: bold;
-  color: #fffff0;
-  text-shadow: 0px 0px 10px  #000;
+  color: #f5f5db;
+  text-shadow: 0px 0px 10px #000;
+}
+
+@keyframes timer-start {
+  0% {
+    color: #fff;
+  }
+  100% {
+    color: #f5f5db;
+  }
+}
+
+@keyframes timer-finish {
+  0% {
+    color: #fff;
+  }
+  100% {
+    color: #f1eb9c;
+  }
+}
+
+
+
+.updated-timer {
+  animation: timer-start 0.6s ease-in;
+}
+
+.finished {
+  animation: timer-finish 0.6s ease-in;
+  color: #f1eb9c;
 }
