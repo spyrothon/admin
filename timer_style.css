@@ -12,7 +12,7 @@ body {
 @keyframes timer-start {
   0% {
     color: #fff;
-    text-shadow: 0px 0px 2px #ccc;
+    text-shadow: 0px 0px 30px #fff;
   }
   100% {
     color: #f1eb9c;
@@ -23,7 +23,7 @@ body {
 @keyframes timer-finish {
   0% {
     color: #fff;
-    text-shadow: 0px 0px 2px #ccc;
+    text-shadow: 0px 0px 30px #fff;
   }
   100% {
     color: #f3e966;
