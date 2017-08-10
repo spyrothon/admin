@@ -3,5 +3,8 @@ body {
 }
 
 .timer {
-  font-size: 46px;
+  font-size: 60px;
+  font-weight: bold;
+  color: #fffff0;
+  text-shadow: 0px 0px 10px  #000;
 }
