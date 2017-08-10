@@ -5,29 +5,29 @@ body {
 .timer {
   font-size: 60px;
   font-weight: bold;
-  color: #f5f5db;
-  text-shadow: 0px 0px 10px #000;
+  color: #f1eb9c;
+  text-shadow: 0px 0px 15px #000;
 }
 
 @keyframes timer-start {
   0% {
     color: #fff;
-    text-shadow: 0px 0px 2px #999;
+    text-shadow: 0px 0px 2px #ccc;
   }
   100% {
-    color: #f5f5db;
-    text-shadow: 0px 0px 10px #000;
+    color: #f1eb9c;
+    text-shadow: 0px 0px 15px #000;
   }
 }
 
 @keyframes timer-finish {
   0% {
     color: #fff;
-    text-shadow: 0px 0px 2px #999;
+    text-shadow: 0px 0px 2px #ccc;
   }
   100% {
-    color: #f1eb9c;
-    text-shadow: 0px 0px 10px #000;
+    color: #f3e966;
+    text-shadow: 0px 0px 15px #000;
   }
 }
 
@@ -39,5 +39,5 @@ body {
 
 .finished {
   animation: timer-finish 1.0s ease-out;
-  color: #f1eb9c;
+  color: #f3e966;
 }
