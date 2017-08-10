@@ -9,9 +9,17 @@
 
   <body>
     <div class="scene-manager">
+      <div class="obs-manager">
+        <input type="text" class="obs-address" placeholder="OBS Hostname">
+        <input type="text" class="obs-password" placeholder="OBS password">
+        <button class="obs-connect">Connect to OBS</button>
+      </div>
+
       <h1>Scenes</h1>
       <p>Click a scene to transition to it on stream</p>
+      <p>Current scene: <span class="current-scene"></span></p>
       <div class="available-scenes">
+        Not connected to OBS yet.
       </div>
     </div>
 
@@ -24,6 +32,7 @@
         <li>Runner has started stream (check on VLC - reference <a href="https://pastebin.com/ULhTjDgE" target="_blank">this pastebin</a> for stream keys.</li>
         <li>Commentators have runner's stream up (again, reference above pastebin).</li>
         <li>Runner information is correct</li>
+        <li>Timer has been reset</li>
         <li>Current Game on Twitch has been updated</li>
       </ol>
     </div>
@@ -33,34 +42,46 @@
       <span class="timer-state"></span>
       <span class="timer-time">00:00:00</span>
       <div class="actions">
-        <button id="start_timer">Start</button>
-        <button id="stop_timer">Finish</button>
-        <button id="reset_timer">Reset</button>
+        <button class="timer-button" id="start_timer">Start</button>
+        <button class="timer-button" id="stop_timer">Finish</button>
+        <button class="timer-button" id="reset_timer">Reset</button>
       </div>
     </div>
   </body>
 
   <script>
     const obs = new OBSWebSocket();
-    connection = obs.connect({ address: '192.168.200.184:4444', password: 'spyrothon' });
+    let connection = null;
 
-    obs.onSwitchScenes(function(data) {
-      console.log('New Active Scene:', data.sceneName);
-    });
+    document.querySelector(".obs-connect").addEventListener('click', function(event) {
+      let address = document.querySelector(".obs-address").value;
+      let password = document.querySelector(".obs-password").value;
+      connection = obs.connect({ address: address, password: password });
 
-    connection.then(function() {
-      obs.getSceneList({}).then(function(response) {
-        response.scenes.forEach(function(scene) {
-          var element = document.createElement("div");
-          element.classList.add("scene");
-          element.innerText = scene.name;
-          document.querySelector(".available-scenes").appendChild(element);
-          if(scene.name == response.currentScene) {
-            element.classList.add("current-scene");
-          }
+      connection.then(function() {
+        var scene_container = document.querySelector(".available-scenes");
+        while(scene_container.hasChildNodes()) {
+          scene_container.removeChild(scene_container.lastChild);
+        }
+
+        obs.getSceneList({}).then(function(response) {
+          response.scenes.forEach(function(scene) {
+            var element = document.createElement("div");
+            element.classList.add("scene");
+            element.innerText = scene.name;
+            document.querySelector(".available-scenes").appendChild(element);
+            if(scene.name == response.currentScene) {
+              element.classList.add("current-scene");
+            }
+          });
         });
       });
     });
+
+    obs.onSwitchScenes(function(data) {
+      document.querySelector('.current-scene').innerText = data.sceneName;
+    });
+
 
 
     document.addEventListener('click', function(event) {
