@@ -25,5 +25,9 @@ get "/timer" do |ctx|
   render "timer.html.ecr"
 end
 
+get "/countdown" do |ctx|
+  render "countdown.html.ecr"
+end
+
 
 Kemal.run

@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/countdown.css">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+
+    <script src='https://use.typekit.net/abb5hmw.js'></script>
+    <script>
+      try{Typekit.load({ async: true });}catch(e){}
+    </script>
+  </head>
+
+  <body>
+    <div class="countdown">
+      <span class="timer updated-timer" data-started_at="1502492400">00:00:00</span>
+    </div>
+  </body>
+
+  <script src="/moment.js"></script>
+  <script src="/moment-duration-format.js"></script>
+  <script>
+    function increment_timers() {
+      [].forEach.call(document.querySelectorAll(".updated-timer"), function(timer) {
+        if(timer.dataset.started_at) {
+          let now = moment().unix();
+          let start_time = parseInt(timer.dataset.started_at);
+          timer.innerText = moment.duration(now - start_time, 's').format("hh:mm:ss", { trim: false });
+        } else {
+          let previous_time = moment.duration(timer.innerText);
+          timer.innerText = previous_time.add(1, 's').format("hh:mm:ss", { trim: false });
+        }
+      });
+    }
+
+    setInterval(increment_timers, 1000);
+  </script>
+</html>
