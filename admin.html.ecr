@@ -47,99 +47,28 @@
         <button class="timer-button" id="reset_timer">Reset</button>
       </div>
     </div>
+
+    <div class="audio-control">
+      <h2>Audio Control</h2>
+
+      <div class="sources">
+      </div>
+
+      <datalist id="tickmarks">
+        <option value="0.00">
+        <option value="0.10">
+        <option value="0.20">
+        <option value="0.30">
+        <option value="0.40">
+        <option value="0.50">
+        <option value="0.60">
+        <option value="0.70">
+        <option value="0.80">
+        <option value="0.90">
+        <option value="1.00">
+      </datalist>
+    </div>
   </body>
 
-  <script>
-    const obs = new OBSWebSocket();
-    let connection = null;
-
-    document.querySelector(".obs-connect").addEventListener('click', function(event) {
-      let address = document.querySelector(".obs-address").value;
-      let password = document.querySelector(".obs-password").value;
-      connection = obs.connect({ address: address, password: password });
-
-      connection.then(function() {
-        var scene_container = document.querySelector(".available-scenes");
-        while(scene_container.hasChildNodes()) {
-          scene_container.removeChild(scene_container.lastChild);
-        }
-
-        obs.getSceneList({}).then(function(response) {
-          response.scenes.forEach(function(scene) {
-            var element = document.createElement("div");
-            element.classList.add("scene");
-            element.innerText = scene.name;
-            document.querySelector(".available-scenes").appendChild(element);
-            if(scene.name == response.currentScene) {
-              element.classList.add("current-scene");
-            }
-          });
-        });
-      });
-    });
-
-    obs.onSwitchScenes(function(data) {
-      document.querySelector('.current-scene').innerText = data.sceneName;
-    });
-
-
-
-    document.addEventListener('click', function(event) {
-      var target = event.target;
-      if(!target.classList.contains("scene")) return;
-      console.log(target);
-
-      obs.setCurrentScene({ "scene-name": target.innerText });
-    }, false);
-
-    let base_uri = ((window.location.protocol === "https:") ? "wss://" : "ws://") + window.location.host;
-    let timer_socket = new WebSocket(base_uri + "/timer-control");
-
-    timer_socket.onmessage = function(event) {
-      var msg = JSON.parse(event.data);
-
-      switch(msg.type) {
-        case "timer_start":
-
-          break;
-      }
-    };
-
-    function start_timer() {
-      timer_socket.send('{"action": "start" }');
-      document.querySelector(".timer-time").classList.add("updated-timer");
-    }
-
-    document.querySelector("#start_timer").addEventListener('click', this.start_timer.bind(this));
-
-    function stop_timer() {
-      timer_socket.send('{"action": "stop" }');
-      document.querySelector(".timer-time").classList.remove("updated-timer");
-    }
-
-    document.querySelector("#stop_timer").addEventListener('click', this.stop_timer.bind(this));
-
-    function reset_timer() {
-      timer_socket.send('{"action": "reset" }');
-      document.querySelector(".timer-time").classList.remove("updated-timer");
-      document.querySelector(".timer-time").innerText = '00:00:00';
-    }
-
-    document.querySelector("#reset_timer").addEventListener('click', this.reset_timer.bind(this));
-
-    function increment_timers() {
-      [].forEach.call(document.querySelectorAll(".updated-timer"), function(timer) {
-        if(timer.dataset.started_at) {
-          let now = moment().unix();
-          let start_time = parseInt(timer.dataset.started_at);
-          timer.innerText = moment.duration(now - start_time, 's').format("hh:mm:ss", { trim: false });
-        } else {
-          let previous_time = moment.duration(timer.innerText);
-          timer.innerText = previous_time.add(1, 's').format("hh:mm:ss", { trim: false });
-        }
-      });
-    }
-
-    setInterval(increment_timers, 1000);
-  </script>
+  <script src="admin.js"></script>
 </html>

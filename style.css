@@ -5,6 +5,7 @@ body {
 .scene-manager {
   width: 400px;
   float: left;
+  margin: 15px;
 }
 
 .available-scenes {
@@ -22,9 +23,15 @@ body {
   cursor: pointer;
 }
 
+.available-scenes .current-scene,
+.available-scenes .current-scene:hover {
+  background-color: #baf1ba;
+}
+
 #checklist {
-  width: 700px;
+  width: 640px;
   float: left;
+  margin: 15px;
 }
 
 #checklist li {
@@ -32,6 +39,7 @@ body {
 }
 
 .timer-control {
+  margin: 15px;
   width: 700px;
   float: left;
 }
@@ -65,4 +73,24 @@ body {
 
 #reset_timer:hover {
   background-color: #a23e3e;
+}
+
+
+.audio-control {
+  margin: 15px;
+  width: 700px;
+  float: left;
+}
+
+.audio-control .source {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.audio-control .source label {
+  display: block;
+}
+
+.audio-control .source input {
+  width: 70%;
 }
